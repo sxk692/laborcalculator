@@ -1,9 +1,8 @@
-package com.sherwin.exercise.laborcalculator.controller;
+package com.sherwin.exercise.laborcalculator.rest;
 
-import com.sherwin.exercise.laborcalculator.model.LaborCalculator;
-import com.sherwin.exercise.laborcalculator.service.LaborCalculatorService;
+import com.sherwin.exercise.laborcalculator.domain.entity.LaborCalculator;
+import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
