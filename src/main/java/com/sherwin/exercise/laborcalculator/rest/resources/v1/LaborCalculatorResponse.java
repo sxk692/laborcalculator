@@ -13,10 +13,4 @@ public class LaborCalculatorResponse {
     public int id;
     public double price;
 
-    //Not sure why, but removing above annotations and uncommenting below fixes the issue that was not present prior
-    // to adding mappers and restructuring folders.
-//    public LaborCalculatorResponse(int id, double price){
-//        this.id = id;
-//        this.price = price;
-//    }
 }
