@@ -79,7 +79,7 @@
 						<dependency>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok-mapstruct-binding</artifactId>
-							<version>${org.projectlombok.lombok-mapstruct-binding}</version>
+<!--							<version>${org.projectlombok.lombok-mapstruct-binding}</version>-->
 						</dependency>
 						<path>
 							<groupId>org.projectlombok</groupId>
