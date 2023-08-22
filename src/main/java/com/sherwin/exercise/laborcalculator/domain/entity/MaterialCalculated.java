@@ -12,10 +12,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="labor")
+@Table(name="material")
 public class MaterialCalculated {
 
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
@@ -23,5 +22,14 @@ public class MaterialCalculated {
     public double length;
     public double width;
     public double sqftPerGallon;
+    public double gallonsRequired;
 
+    public MaterialCalculated(int id, double length, double width, double sqftPerGallon, double gallonsRequired){
+        this.id = id;
+        this.length = length;
+        this.width = width;
+        this.sqftPerGallon = sqftPerGallon;
+        this.gallonsRequired = gallonsRequired;
+        this.createdAt = new Date();
+    }
 }

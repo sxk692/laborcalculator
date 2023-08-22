@@ -1,6 +1,5 @@
 package com.sherwin.exercise.laborcalculator.rest;
 
-import com.sherwin.exercise.laborcalculator.domain.entity.LaborCalculator;
 import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorService;
 import com.sherwin.exercise.laborcalculator.rest.resources.mappers.LaborCalculatorMapper;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;

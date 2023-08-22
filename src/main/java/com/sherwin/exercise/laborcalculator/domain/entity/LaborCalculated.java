@@ -15,18 +15,25 @@ import java.util.Date;
 @Table(name="labor")
 public class LaborCalculated {
 
-    @NotNull
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
-    Date createdAt;
     public double length;
     public double width;
+    @Column(name="price_per_sqft")
     public double pricePerSqft;
+    @Column(name="total_price")
+    //TODO use currency instead of price for database representation
     public double price;
+    Date createdAt;
 
-    public LaborCalculated(int id, double price){
+    public LaborCalculated(int id, double price, double length, double width, double pricePerSqft){
         this.id = id;
+        this.length = length;
+        this.width = width;
+        this.pricePerSqft = pricePerSqft;
         this.price = price;
+        this.createdAt = new Date();
     }
+
 }
