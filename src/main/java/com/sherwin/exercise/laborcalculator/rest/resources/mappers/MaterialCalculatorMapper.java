@@ -15,7 +15,7 @@ public interface MaterialCalculatorMapper {
     MaterialCalculatorRequest convertFrontEndRequestToMaterialCalculatorRequest(MaterialCalculatorRequest request);
 
     // Convert from MaterialCalculatedRequested to MaterialCalculated object
-    MaterialCalculated convertFrontEndRequestToLaborCalculated(MaterialCalculatorRequest request);
+    MaterialCalculated convertFrontEndRequestToMaterialCalculated(MaterialCalculatorRequest request);
 
     // Convert from MaterialCalculated object to MaterialCalculatorResponse object
     MaterialCalculatorResponse convertMaterialCalculatedtoMaterialCalculatorResponse(MaterialCalculated calculatedMaterials);

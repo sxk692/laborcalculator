@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LaborCalculatorController {
 
     @Autowired
-    LaborCalculatorMapper laborCalculatorMapper;
-    @Autowired
     LaborCalculatorService laborCalculatorService;
     @PostMapping("labor/price")
     public LaborCalculatorResponse getLaborCalculationPerSqft(@RequestBody LaborCalculatorRequest frontEndRequest){
