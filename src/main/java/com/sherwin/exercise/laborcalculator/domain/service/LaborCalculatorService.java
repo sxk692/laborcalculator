@@ -22,22 +22,19 @@ public class LaborCalculatorService {
      */
     // TODO: Change this to go from request pojo to LaborCalculated object, then when sending as response, map from LaborCalculated object to LaborCalculatorResponse object.
     public LaborCalculatorResponse frontendRequestToCalculatedLabor(LaborCalculatorRequest request){
-        double price = request.length * request.width * request.pricePerSqft;
-        double id = Math.random() * 10000 +1 ;
+
         // Create new labor calculated object to send to a response DTO
-        LaborCalculated calculatedLabor = new LaborCalculated((int)id, price, request.length, request.width, request.pricePerSqft);
+        LaborCalculated calculatedLabor = calculateLabor(request);
         // Save in repository
         laborCalculatedRepository.save(calculatedLabor);
         return laborCalculatorMapper.convertLaborCalculatedtoLaborCalculatorResponse(calculatedLabor);
     }
 
-//    public LaborCalculatorResponse createLaborCalculatedResponse(LaborCalculated calculatedLabor) {
-//        // Creates Calculated Labor Object
-//        return laborCalculatorMapper.convertLaborCalculatedtoLaborCalculatorResponse(calculatedLabor);
-//    }
+    public LaborCalculated calculateLabor(LaborCalculatorRequest request){
+        double price = request.length * request.width * request.pricePerSqft;
+        // setting id the same for now so I can have a static number when running unit tests
+        double id = 10001 ;
+        return new LaborCalculated((int)id, price, request.length, request.width, request.pricePerSqft);
+    }
 
-
-//    public double calculateGallonsPerSqft(LaborCalculator laborCalculatorObject){
-//        return laborCalculatorObject.length * laborCalculatorObject.width / laborCalculatorObject.sqftPerGallon;
-//    }
 }

@@ -15,8 +15,6 @@ public class MaterialController {
     MaterialCalculatorService materialCalculatorService;
     @PostMapping("labor/gallons")
     public MaterialCalculatorResponse getGallonsRequiredPerSqft(@RequestBody MaterialCalculatorRequest bodyValues){
-        // Is this where jackson could come into play, do destructure teh json object to use my other polymorphed
-        // method in LaborCalculatorService
         return materialCalculatorService.frontendRequestToCalculatedMaterialCalculatorResponse(bodyValues);
     }
 }
