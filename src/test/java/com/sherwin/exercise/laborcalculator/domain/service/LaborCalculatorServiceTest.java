@@ -31,7 +31,6 @@ public class LaborCalculatorServiceTest {
 
         // Compares the calculated price vs the expected price
         Assertions.assertTrue(calculatedPrice == correctLaborCalculation.price);
-
     }
 
     @Test

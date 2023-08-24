@@ -21,16 +21,17 @@ public class MaterialCalculatorService {
     3. MaterialCalculated object is mapped to a response object to send back
      */
     public MaterialCalculatorResponse frontendRequestToCalculatedMaterialCalculatorResponse(MaterialCalculatorRequest request){
-        double id = Math.random() * 10000 +1 ;
-        double gallonsRequired = calculateGallonsPerSqft(request);
-        // Create new labor calculated object to send to a response DTO
-        MaterialCalculated calculatedMaterials = new MaterialCalculated((int)id, request.length, request.width, request.sqftPerGallon, gallonsRequired );
+
+        MaterialCalculated calculatedMaterials = calculateGallonsPerSqft(request);
         // Save in repository
         materialCalculatedRepository.save(calculatedMaterials);
         return materialCalculatorMapper.convertMaterialCalculatedtoMaterialCalculatorResponse(calculatedMaterials);
     }
 
-    public double calculateGallonsPerSqft(MaterialCalculatorRequest request){
-        return request.length * request.width / request.sqftPerGallon;
+    public MaterialCalculated calculateGallonsPerSqft(MaterialCalculatorRequest request){
+        double gallons =  request.length * request.width / request.sqftPerGallon;
+        // Hard coded for now for testing
+        int id = 10001;
+        return new MaterialCalculated(id, request.length, request.width, request.sqftPerGallon, gallons);
     }
 }
