@@ -1,4 +1,4 @@
-package com.sherwin.exercise.laborcalculator.rest;
+package com.sherwin.exercise.laborcalculator.domain.service;
 
 import com.sherwin.exercise.laborcalculator.domain.entity.LaborCalculated;
 import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorService;
