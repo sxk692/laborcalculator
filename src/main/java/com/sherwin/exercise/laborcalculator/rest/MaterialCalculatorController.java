@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MaterialController {
+public class MaterialCalculatorController {
 
     @Autowired
     MaterialCalculatorService materialCalculatorService;
-    @PostMapping("labor/gallons")
+    @PostMapping("materials/gallons")
     public MaterialCalculatorResponse getGallonsRequiredPerSqft(@RequestBody MaterialCalculatorRequest bodyValues){
         return materialCalculatorService.frontendRequestToCalculatedMaterialCalculatorResponse(bodyValues);
     }

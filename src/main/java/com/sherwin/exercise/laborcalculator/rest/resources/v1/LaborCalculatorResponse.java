@@ -16,8 +16,5 @@ import java.util.Date;
 public class LaborCalculatorResponse {
     public int id;
     public double price;
-    public double length;
-    public double width;
-    String status;
 
 }

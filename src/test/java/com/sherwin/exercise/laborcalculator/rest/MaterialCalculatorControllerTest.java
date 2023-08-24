@@ -1,10 +1,10 @@
 package com.sherwin.exercise.laborcalculator.rest;
 
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sherwin.exercise.laborcalculator.domain.entity.LaborCalculated;
-import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorService;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sherwin.exercise.laborcalculator.domain.service.MaterialCalculatorService;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialCalculatorRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,34 +14,36 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.IOException;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(LaborCalculatorController.class)
-public class LaborCalculatorControllerTest {
+@WebMvcTest(MaterialCalculatorController.class)
+public class MaterialCalculatorControllerTest {
 
     @Autowired
     private MockMvc mvc;
     @MockBean
-    LaborCalculatorService laborCalculatorService;
-
+    MaterialCalculatorService materialCalculatorService;
     private ObjectMapper objectMapper;
 
     @BeforeEach
-    // Creates an object mapper to map an object to a JSON string for below tests
-            void setup() throws IOException{
+        // Creates an object mapper to map an object to a JSON string for below tests
+    void setup() throws IOException {
         JavaTimeModule module = new JavaTimeModule();
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(module);
     }
 
     @Test
-    public void get200ResponseWhenSendingPostToLaborEndpoint() throws Exception {
-        LaborCalculatorRequest request = new LaborCalculatorRequest(134,20,3.50);
+    public void get200ResponseWhenSendingPostToGallonsEndpoint() throws Exception {
+        // Frontend Request object
+        MaterialCalculatorRequest request = new MaterialCalculatorRequest(12.0, 14.0, 300);
         // Checks whether we get a 200 when sending a post to this endpoint
-         mvc.perform(post("/labor/price")
+        mvc.perform(post("/materials/gallons")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk());
     }
+
 }
