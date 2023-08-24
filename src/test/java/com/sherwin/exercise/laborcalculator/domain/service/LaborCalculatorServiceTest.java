@@ -22,7 +22,7 @@ public class LaborCalculatorServiceTest {
         laborCalculatorService = new LaborCalculatorService();
 
         // This is the front-end request coming in
-        LaborCalculatorRequest request = new LaborCalculatorRequest(134, 20, 3.5);
+        LaborCalculatorRequest request = new LaborCalculatorRequest(134, 20, 3.50);
 
         // This is the expected result object to compare the calculation to.
         LaborCalculated correctLaborCalculation = new LaborCalculated(10001, 9380.0,134, 20, 3.50);
@@ -38,6 +38,8 @@ public class LaborCalculatorServiceTest {
     public void checkFrontEndRequestConvertsToLaborCalculatedObject() {
 
         laborCalculatorService = new LaborCalculatorService();
+
+        LaborCalculated laborCalculated = new LaborCalculated(10001, 9380.0,134, 20, 3.50);
 
         LaborCalculatorRequest request = new LaborCalculatorRequest(134, 20, 3.5);
 
