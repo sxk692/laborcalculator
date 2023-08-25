@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Component
 public class LaborCalculatorResponse {
-    private int id;
-    private double price;
+    public int id;
+    public double price;
 
 }

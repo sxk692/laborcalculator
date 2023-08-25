@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Component
 public class MaterialCalculatorRequest {
-    private double length;
-    private double width;
-    private double sqftPerGallon;
+    public double length;
+    public double width;
+    public double sqftPerGallon;
 }

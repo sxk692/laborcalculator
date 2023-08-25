@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Component
 public class MaterialCalculatorResponse {
-    private int id;
-    private double gallonsRequired;
+    public int id;
+    public double gallonsRequired;
 }
