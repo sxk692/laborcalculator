@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.Date;
 
@@ -24,8 +23,7 @@ public class MaterialCalculated {
     public double sqftPerGallon;
     public double gallonsRequired;
 
-    public MaterialCalculated(int id, double length, double width, double sqftPerGallon, double gallonsRequired){
-        this.id = id;
+    public MaterialCalculated(double length, double width, double sqftPerGallon, double gallonsRequired){
         this.length = length;
         this.width = width;
         this.sqftPerGallon = sqftPerGallon;

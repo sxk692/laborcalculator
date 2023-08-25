@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.Date;
 
@@ -16,19 +15,17 @@ import java.util.Date;
 public class LaborCalculated {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
     public double length;
     public double width;
     @Column(name="price_per_sqft")
     public double pricePerSqft;
     @Column(name="total_price")
-    //TODO use currency instead of price for database representation
     public double price;
     Date createdAt;
 
-    public LaborCalculated(int id, double price, double length, double width, double pricePerSqft){
-        this.id = id;
+    public LaborCalculated(double price, double length, double width, double pricePerSqft){
         this.length = length;
         this.width = width;
         this.pricePerSqft = pricePerSqft;

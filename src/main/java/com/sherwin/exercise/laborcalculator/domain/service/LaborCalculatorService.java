@@ -30,8 +30,7 @@ public class LaborCalculatorService {
     }
 
     public LaborCalculated calculateLabor(LaborCalculatorRequest request){
-        double price = request.length * request.width * request.pricePerSqft;
-        int id = (int) Math.random()*1000+1 ;
-        return new LaborCalculated((int)id, price, request.length, request.width, request.pricePerSqft);
+        double price = request.getLength() * request.getWidth() * request.getPricePerSqft();
+        return new LaborCalculated(price, request.getLength(), request.getWidth(), request.getPricePerSqft());
     }
 }

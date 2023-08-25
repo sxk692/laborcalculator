@@ -29,8 +29,7 @@ public class MaterialCalculatorService {
     }
 
     public MaterialCalculated calculateGallonsPerSqft(MaterialCalculatorRequest request){
-        double gallons =  request.length * request.width / request.sqftPerGallon;
-        int id = (int) Math.random()*1000+1;
-        return new MaterialCalculated(id, request.length, request.width, request.sqftPerGallon, gallons);
+        double gallons =  request.getLength() * request.getWidth() / request.getSqftPerGallon();
+        return new MaterialCalculated(request.getLength(), request.getWidth(), request.getSqftPerGallon(), gallons);
     }
 }
