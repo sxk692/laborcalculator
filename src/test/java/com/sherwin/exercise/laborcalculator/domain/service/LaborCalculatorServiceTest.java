@@ -3,29 +3,44 @@ package com.sherwin.exercise.laborcalculator.domain.service;
 import com.sherwin.exercise.laborcalculator.domain.entity.LaborCalculated;
 import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorService;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorResponse;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class LaborCalculatorServiceTest {
 
-    @MockBean
+    @InjectMocks
     LaborCalculatorService laborCalculatorService;
+
+    @Mock
+    LaborCalculatorService mockLaborCalculatorService;
+
+    @Mock
+    LaborCalculated mockLaborCalculated;
+
+    @Mock
+    LaborCalculatorRequest mockLaborCalculatorRequest;
+
+    @Mock
+    LaborCalculatorResponse mockLaborCalculatorResponse;
 
     @Test
     public void checkLaborCalculationFormulaWorks(){
-
-        // Why do I need this if I already have a mockbean for this service? Commenting this out fails the test as
-        // it shows null for the service.
-        laborCalculatorService = new LaborCalculatorService();
 
         // This is the front-end request coming in
         LaborCalculatorRequest request = new LaborCalculatorRequest(134, 20, 3.50);
 
         // This is the expected result object to compare the calculation to.
-        LaborCalculated correctLaborCalculation = new LaborCalculated(10001, 9380.0,134, 20, 3.50);
+        LaborCalculated correctLaborCalculation = new LaborCalculated((int)(Math.random()*1000+1), 9380.0,134, 20, 3.50);
 
         double calculatedPrice = laborCalculatorService.calculateLabor(request).price;
 
@@ -35,13 +50,8 @@ public class LaborCalculatorServiceTest {
 
     @Test
     public void checkFrontEndRequestConvertsToLaborCalculatedObject() {
-
-        laborCalculatorService = new LaborCalculatorService();
-
-        LaborCalculated laborCalculated = new LaborCalculated(10001, 9380.0,134, 20, 3.50);
-
-        LaborCalculatorRequest request = new LaborCalculatorRequest(134, 20, 3.5);
-
-       given(laborCalculatorService.calculateLabor(request)).willReturn(laborCalculated);
+        // When we supply a LaborCalculatorRequest, we return a LaborCalculated Object
+       when(mockLaborCalculatorService.calculateLabor(mockLaborCalculatorRequest)).thenReturn(mockLaborCalculated);
     }
+
 }

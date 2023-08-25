@@ -1,9 +1,10 @@
-package com.sherwin.exercise.laborcalculator.rest;
+package com.sherwin.exercise.laborcalculator.rest.v1;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sherwin.exercise.laborcalculator.domain.service.MaterialCalculatorService;
+import com.sherwin.exercise.laborcalculator.rest.MaterialCalculatorController;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialCalculatorRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

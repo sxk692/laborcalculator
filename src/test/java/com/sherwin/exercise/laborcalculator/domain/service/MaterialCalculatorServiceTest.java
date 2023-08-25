@@ -5,29 +5,42 @@ import com.sherwin.exercise.laborcalculator.domain.entity.MaterialCalculated;
 import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorService;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialCalculatorRequest;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.event.annotation.BeforeTestMethod;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MaterialCalculatorServiceTest {
 
-    @MockBean
+    @InjectMocks
     MaterialCalculatorService materialCalculatorService;
+
+    @Mock
+    MaterialCalculatorService mockMaterialCalculatorService;
+
+    @Mock
+    MaterialCalculated materialCalculated;
+
+    @Mock
+    MaterialCalculatorRequest materialCalculatorRequest;
 
     @Test
     public void checkMaterialCalculationFormulaWorks(){
-
-        // Why do I need this if I already have a mockbean for this service? Commenting this out fails the test as
-        // it shows null for the service.
-        materialCalculatorService = new MaterialCalculatorService();
 
         // This is the front-end request coming in
         MaterialCalculatorRequest request = new MaterialCalculatorRequest(12.0, 14.0, 300);
 
         // This is the expected result object to compare the calculation to.
-        MaterialCalculated correctMaterialCalculation = new MaterialCalculated(10001, 12.0,14.0, 300, 0.56);
+        MaterialCalculated correctMaterialCalculation = new MaterialCalculated(((int) Math.random()*1000+1), 12.0,14.0, 300, 0.56);
 
         MaterialCalculated calculatedMaterials = materialCalculatorService.calculateGallonsPerSqft(request);
 
@@ -35,15 +48,10 @@ public class MaterialCalculatorServiceTest {
         Assertions.assertTrue(correctMaterialCalculation.gallonsRequired == calculatedMaterials.gallonsRequired);
     }
 
+
     @Test
     public void checkFrontEndRequestConvertsToMaterialCalculatedObject() {
 
-        materialCalculatorService = new MaterialCalculatorService();
-
-        MaterialCalculated materialCalculated= new MaterialCalculated(10001, 12.0,14.0, 300, 0.56);
-
-        MaterialCalculatorRequest request = new MaterialCalculatorRequest(12.0, 14.0, 300);
-
-        given(materialCalculatorService.calculateGallonsPerSqft(request)).willReturn(materialCalculated);
+        when(mockMaterialCalculatorService.calculateGallonsPerSqft(materialCalculatorRequest)).thenReturn(materialCalculated);
     }
 }

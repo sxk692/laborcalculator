@@ -20,7 +20,6 @@ public class LaborCalculatorService {
     2. Calculated labor information is converted into a new LaborCalculated object
     3. LaborCalculated object is mapped to a response object to send back
      */
-    // TODO: Change this to go from request pojo to LaborCalculated object, then when sending as response, map from LaborCalculated object to LaborCalculatorResponse object.
     public LaborCalculatorResponse frontendRequestToCalculatedLabor(LaborCalculatorRequest request){
 
         // Create new labor calculated object to send to a response DTO
@@ -32,9 +31,7 @@ public class LaborCalculatorService {
 
     public LaborCalculated calculateLabor(LaborCalculatorRequest request){
         double price = request.length * request.width * request.pricePerSqft;
-        // setting id the same for now so I can have a static number when running unit tests
-        double id = 10001 ;
+        int id = (int) Math.random()*1000+1 ;
         return new LaborCalculated((int)id, price, request.length, request.width, request.pricePerSqft);
     }
-
 }
