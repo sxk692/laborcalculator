@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Component
 public class LaborCalculatorRequest {
-    //TODO: change these to private and use getters/setters
-    public int length;
-    public int width;
-    public double pricePerSqft;
+    private int length;
+    private int width;
+    private double pricePerSqft;
 }
