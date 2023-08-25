@@ -1,10 +1,5 @@
 package com.sherwin.exercise.laborcalculator.rest.v1;
 
-<<<<<<< HEAD
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-=======
->>>>>>> aa49e2d5952f282921d602515bd6a34f5fbdaff8
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sherwin.exercise.laborcalculator.domain.service.MaterialCalculatorService;
@@ -19,11 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-<<<<<<< HEAD
 import org.springframework.test.web.servlet.MvcResult;
-
-=======
->>>>>>> aa49e2d5952f282921d602515bd6a34f5fbdaff8
 import java.io.IOException;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -50,8 +41,6 @@ public class MaterialCalculatorControllerTest {
 
     @Test
     public void get200ResponseWhenSendingPostToGallonsEndpoint() throws Exception {
-        // Frontend Request object
-//        MaterialCalculatorRequest request = new MaterialCalculatorRequest(12.0, 14.0, 300);
         // Checks whether we get a 200 when sending a post to this endpoint
         mvc.perform(post("/materials/gallons")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)

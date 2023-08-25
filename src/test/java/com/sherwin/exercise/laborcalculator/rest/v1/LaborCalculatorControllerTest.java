@@ -5,22 +5,16 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorService;
 import com.sherwin.exercise.laborcalculator.rest.LaborCalculatorController;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-<<<<<<< HEAD
 import org.springframework.test.web.servlet.MvcResult;
-=======
-import java.io.IOException;
->>>>>>> aa49e2d5952f282921d602515bd6a34f5fbdaff8
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
