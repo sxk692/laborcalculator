@@ -1,20 +1,23 @@
 package com.sherwin.exercise.laborcalculator.rest.v1;
 
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sherwin.exercise.laborcalculator.domain.entity.LaborCalculated;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorService;
 import com.sherwin.exercise.laborcalculator.rest.LaborCalculatorController;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorResponse;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-import java.io.IOException;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -25,12 +28,13 @@ public class LaborCalculatorControllerTest {
     private MockMvc mvc;
     @MockBean
     LaborCalculatorService laborCalculatorService;
-
+    @Mock
+    LaborCalculatorRequest laborCalculatorRequest;
     private ObjectMapper objectMapper;
 
     @BeforeEach
     // Creates an object mapper to map an object to a JSON string for below tests
-            void setup() throws IOException{
+    void setup() {
         JavaTimeModule module = new JavaTimeModule();
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(module);
@@ -45,4 +49,22 @@ public class LaborCalculatorControllerTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk());
     }
+    @Test
+    public void checkAttributesOfLaborCalculatorRequest() throws Exception{
+        MvcResult result = mvc.perform(post("/labor/price")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(laborCalculatorRequest)))
+                .andReturn();
+
+        // Shows the request object info in console
+        System.out.println(result.getRequest().getContentAsString());
+
+        String frontEndJsonRequest = result.getRequest().getContentAsString();
+
+        Assertions.assertTrue(frontEndJsonRequest.contains("length"));
+        Assertions.assertTrue(frontEndJsonRequest.contains("width"));
+        Assertions.assertTrue(frontEndJsonRequest.contains("pricePerSqft"));
+
+    }
+
 }
