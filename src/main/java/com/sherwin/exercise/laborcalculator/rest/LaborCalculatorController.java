@@ -16,6 +16,7 @@ public class LaborCalculatorController {
     @PostMapping("labor/price")
     public LaborCalculatorResponse getLaborCalculationPerSqft(@RequestBody LaborCalculatorRequest frontEndRequest){
         // Taking in body object received from front-end and putting into a DTO.
-       return laborCalculatorService.frontendRequestToCalculatedLabor(frontEndRequest);
+//       return laborCalculatorService.frontendRequestToCalculatedLabor(frontEndRequest);
+        throw new NumberFormatException("whoopsies");
     }
 }
