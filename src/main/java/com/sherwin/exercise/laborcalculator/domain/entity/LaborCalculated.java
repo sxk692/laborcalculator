@@ -1,6 +1,7 @@
 package com.sherwin.exercise.laborcalculator.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,11 +18,15 @@ public class LaborCalculated {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
+    @Min(0)
     public double length;
+    @Min(0)
     public double width;
     @Column(name="price_per_sqft")
+    @Min(0)
     public double pricePerSqft;
     @Column(name="total_price")
+    @Min(0)
     public double price;
     Date createdAt;
 
