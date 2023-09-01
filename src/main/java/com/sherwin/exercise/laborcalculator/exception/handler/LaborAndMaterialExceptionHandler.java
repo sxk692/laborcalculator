@@ -15,8 +15,12 @@ import java.util.Date;
 public class LaborAndMaterialExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    // We already get a 500 error, since we have established @Min annotations on the objects
-    // This provides a more custom solution for that same ConstraintViolationException.
+    /*
+    We already get a 500 error, since we have established @Min annotations on the objects
+    which is why in Material controller, I didn't include @valid in the params to test if it still
+    works and it does (bc of @Min, @NotNull, etc annotations in the entity/domain objects).
+    This @ExceptionHandler provides a more custom solution for that same ConstraintViolationException.
+     */
     @ExceptionHandler
     private ResponseEntity<ErrorDetail> handleConstraintViolation(ConstraintViolationException ex, WebRequest request){
 
