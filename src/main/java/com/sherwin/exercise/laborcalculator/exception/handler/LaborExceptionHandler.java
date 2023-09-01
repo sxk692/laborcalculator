@@ -1,5 +1,6 @@
 package com.sherwin.exercise.laborcalculator.exception.handler;
 
+import com.sherwin.exercise.laborcalculator.exception.ErrorDetail;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ public class LaborExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler
-    public ResponseEntity<ErrorDetail> handleConstraintViolation(ConstraintViolationException ex, WebRequest request){
+    private ResponseEntity<ErrorDetail> handleConstraintViolation(ConstraintViolationException ex, WebRequest request){
 
         ErrorDetail errorDetail = new ErrorDetail
                 ( HttpStatus.BAD_REQUEST.value(),

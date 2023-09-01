@@ -1,4 +1,4 @@
-package com.sherwin.exercise.laborcalculator.exception.handler;
+package com.sherwin.exercise.laborcalculator.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

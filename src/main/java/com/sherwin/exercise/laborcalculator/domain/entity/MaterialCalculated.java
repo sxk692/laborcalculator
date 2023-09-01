@@ -17,16 +17,16 @@ public class MaterialCalculated {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int id;
+    private int id;
     Date createdAt;
     @Min(0)
-    public double length;
+    private double length;
     @Min(0)
-    public double width;
+    private double width;
     @Min(0)
-    public double sqftPerGallon;
+    private double sqftPerGallon;
     @Min(0)
-    public double gallonsRequired;
+    private double gallonsRequired;
 
     public MaterialCalculated(double length, double width, double sqftPerGallon, double gallonsRequired){
         this.length = length;

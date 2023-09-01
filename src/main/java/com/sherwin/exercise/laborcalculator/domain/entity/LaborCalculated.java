@@ -14,20 +14,20 @@ import java.util.Date;
 @Entity
 @Table(name="labor")
 public class LaborCalculated {
-
+// TODO: make all private
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int id;
+    private int id;
     @Min(0)
-    public double length;
+    private double length;
     @Min(0)
-    public double width;
+    private double width;
     @Column(name="price_per_sqft")
     @Min(0)
-    public double pricePerSqft;
+    private double pricePerSqft;
     @Column(name="total_price")
     @Min(0)
-    public double price;
+    private double price;
     Date createdAt;
 
     public LaborCalculated(double price, double length, double width, double pricePerSqft){

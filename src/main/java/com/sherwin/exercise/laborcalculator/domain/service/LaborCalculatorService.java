@@ -10,27 +10,36 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LaborCalculatorService {
-    @Autowired
-    LaborCalculatorMapper laborCalculatorMapper;
-    @Autowired
-    ILaborCalculatedRepository laborCalculatedRepository;
+
+    //TODO: Should these be private??
+    @Autowired private ILaborCalculatedRepository laborCalculatedRepository;
+
+    // Old code, not ideal to have mapper in service, moved mapper to controller
+//    public LaborCalculatorResponse frontendRequestToCalculatedLabor(LaborCalculatorRequest request){
+//
+//        // Create new labor calculated object to send to a response DTO
+//        LaborCalculated calculatedLabor = calculateLabor(request);
+//        // Save in repository
+//        laborCalculatedRepository.save(calculatedLabor);
+//        return laborCalculatorMapper.convertLaborCalculatedtoLaborCalculatorResponse(calculatedLabor);
+//    }
 
     /*
     1. Takes in front-end request information as parameter to calculate labor
     2. Calculated labor information is converted into a new LaborCalculated object
     3. LaborCalculated object is mapped to a response object to send back
      */
-    public LaborCalculatorResponse frontendRequestToCalculatedLabor(LaborCalculatorRequest request){
-
-        // Create new labor calculated object to send to a response DTO
-        LaborCalculated calculatedLabor = calculateLabor(request);
-        // Save in repository
-        laborCalculatedRepository.save(calculatedLabor);
-        return laborCalculatorMapper.convertLaborCalculatedtoLaborCalculatorResponse(calculatedLabor);
-    }
-
     public LaborCalculated calculateLabor(LaborCalculatorRequest request){
+
+        // Calculate price
         double price = request.getLength() * request.getWidth() * request.getPricePerSqft();
-        return new LaborCalculated(price, request.getLength(), request.getWidth(), request.getPricePerSqft());
+
+        // Create new object with the price that was calculated
+        LaborCalculated laborCalculated  = new LaborCalculated(price, request.getLength(), request.getWidth(), request.getPricePerSqft());
+
+        // Save to repository
+        laborCalculatedRepository.save(laborCalculated);
+
+        return laborCalculated;
     }
 }
