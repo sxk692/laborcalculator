@@ -7,21 +7,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
 
 @ControllerAdvice
-public class MaterialExceptionHandler {
+public class LaborAndMaterialExceptionHandler extends ResponseEntityExceptionHandler {
+
+
+    // We already get a 500 error, since we have established @Min annotations on the objects
+    // This provides a more custom solution for that same ConstraintViolationException.
     @ExceptionHandler
     private ResponseEntity<ErrorDetail> handleConstraintViolation(ConstraintViolationException ex, WebRequest request){
 
         ErrorDetail errorDetail = new ErrorDetail
-                ( HttpStatus.BAD_REQUEST.value(),
+                ( HttpStatus.NOT_ACCEPTABLE.value(),
                         new Date(),
-                        "Received negative for values or missing constraints",
+                        "Received negative number or missing constraints",
                         request.getDescription(true)
-                );
+        );
 
-        return new ResponseEntity<ErrorDetail>(errorDetail, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<ErrorDetail>(errorDetail, HttpStatus.NOT_ACCEPTABLE);
     }
 }

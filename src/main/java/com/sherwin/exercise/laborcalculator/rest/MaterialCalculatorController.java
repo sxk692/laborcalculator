@@ -19,8 +19,10 @@ public class MaterialCalculatorController {
     private MaterialCalculatorService materialCalculatorService;
     @PostMapping("materials/gallons")
     private MaterialCalculatorResponse getGallonsRequiredPerSqft(@RequestBody MaterialCalculatorRequest request){
+
         // Calculated material object returned
         MaterialCalculated materialCalculated = materialCalculatorService.calculateGallonsPerSqft(request);
+
         // Calculated material object mapped to response DTO
         return materialCalculatorMapper.convertMaterialCalculatedtoMaterialCalculatorResponse(materialCalculated);
     }
