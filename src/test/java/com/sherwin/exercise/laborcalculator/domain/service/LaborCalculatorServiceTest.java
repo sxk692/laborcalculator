@@ -1,6 +1,7 @@
 package com.sherwin.exercise.laborcalculator.domain.service;
 
 import com.sherwin.exercise.laborcalculator.domain.entity.LaborCalculated;
+import com.sherwin.exercise.laborcalculator.domain.respositories.ILaborCalculatedRepository;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorResponse;
 import org.junit.Test;
@@ -19,6 +20,9 @@ public class LaborCalculatorServiceTest {
     LaborCalculatorService laborCalculatorService;
 
     @Mock
+    ILaborCalculatedRepository laborCalculatedRepository;
+
+    @Mock
     LaborCalculatorService mockLaborCalculatorService;
 
     @Mock
@@ -26,9 +30,6 @@ public class LaborCalculatorServiceTest {
 
     @Mock
     LaborCalculatorRequest mockLaborCalculatorRequest;
-
-    @Mock
-    LaborCalculatorResponse mockLaborCalculatorResponse;
 
     @Test
     public void checkLaborCalculationFormulaWorks(){

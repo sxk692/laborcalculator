@@ -1,6 +1,7 @@
 package com.sherwin.exercise.laborcalculator.domain.service;
 
 import com.sherwin.exercise.laborcalculator.domain.entity.MaterialCalculated;
+import com.sherwin.exercise.laborcalculator.domain.respositories.IMaterialCalculatedRepository;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialCalculatorRequest;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -20,6 +21,8 @@ public class MaterialCalculatorServiceTest {
     @Mock
     MaterialCalculatorService mockMaterialCalculatorService;
 
+    @Mock
+    IMaterialCalculatedRepository materialCalculatedRepository;
     @Mock
     MaterialCalculated materialCalculated;
 

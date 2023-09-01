@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorService;
 import com.sherwin.exercise.laborcalculator.rest.LaborCalculatorController;
+import com.sherwin.exercise.laborcalculator.rest.resources.mappers.LaborCalculatorMapper;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,8 @@ public class LaborCalculatorControllerTest {
     private MockMvc mvc;
     @MockBean
     LaborCalculatorService laborCalculatorService;
+    @MockBean
+    LaborCalculatorMapper laborCalculatorMapper;
     @Mock
     LaborCalculatorRequest laborCalculatorRequest;
     private ObjectMapper objectMapper;
