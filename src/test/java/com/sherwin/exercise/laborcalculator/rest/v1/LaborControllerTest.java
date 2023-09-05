@@ -6,6 +6,7 @@ import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorServic
 import com.sherwin.exercise.laborcalculator.rest.LaborCalculatorController;
 import com.sherwin.exercise.laborcalculator.rest.resources.mappers.LaborCalculatorMapper;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -31,6 +33,8 @@ public class LaborCalculatorControllerTest {
     LaborCalculatorMapper laborCalculatorMapper;
     @Mock
     LaborCalculatorRequest laborCalculatorRequest;
+    @Mock
+    LaborCalculatorResponse laborCalculatorResponse;
     private ObjectMapper objectMapper;
 
     @BeforeEach
@@ -45,14 +49,14 @@ public class LaborCalculatorControllerTest {
     public void get200ResponseWhenSendingPostToLaborEndpoint() throws Exception {
         LaborCalculatorRequest request = new LaborCalculatorRequest(134,20,3.50);
         // Checks whether we get a 200 when sending a post to this endpoint
-         mvc.perform(post("/labor/price")
+         mvc.perform(post("/labor/priceCalculation")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk());
     }
     @Test
     public void checkAttributesOfLaborCalculatorRequest() throws Exception{
-        MvcResult result = mvc.perform(post("/labor/price")
+        MvcResult result = mvc.perform(post("/labor/priceCalculation")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(laborCalculatorRequest)))
                 .andReturn();
@@ -66,6 +70,12 @@ public class LaborCalculatorControllerTest {
         Assertions.assertTrue(frontEndJsonRequest.contains("width"));
         Assertions.assertTrue(frontEndJsonRequest.contains("pricePerSqft"));
 
+        given(laborCalculatorMapper.convertLaborCalculatedtoLaborCalculatorResponse(laborCalculatorService.calculateLabor(laborCalculatorRequest)))
+                .willReturn(laborCalculatorResponse);
     }
+
+    // one success, 2 failures
+    // work on responses received
+    // naming conventions
 
 }

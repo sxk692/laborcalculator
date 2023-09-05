@@ -1,9 +1,8 @@
 package com.sherwin.exercise.laborcalculator.domain.service;
 
-import com.sherwin.exercise.laborcalculator.domain.entity.LaborCalculated;
+import com.sherwin.exercise.laborcalculator.domain.entity.Labor;
 import com.sherwin.exercise.laborcalculator.domain.respositories.ILaborCalculatedRepository;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorResponse;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborRequest;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
@@ -26,30 +25,33 @@ public class LaborCalculatorServiceTest {
     LaborCalculatorService mockLaborCalculatorService;
 
     @Mock
-    LaborCalculated mockLaborCalculated;
+    Labor mockLabor;
 
     @Mock
-    LaborCalculatorRequest mockLaborCalculatorRequest;
+    LaborRequest mockLaborRequest;
 
     @Test
     public void checkLaborCalculationFormulaWorks(){
 
         // This is the front-end request coming in
-        LaborCalculatorRequest request = new LaborCalculatorRequest(134, 20, 3.50);
+        LaborRequest request = new LaborRequest(134, 20, 3.50);
 
         // This is the expected result object to compare the calculation to.
-        LaborCalculated correctLaborCalculation = new LaborCalculated(9380.0,134, 20, 3.50);
+        // better to have this than a magic number
+        double correctLaborCalculation = 9380;
 
         double calculatedPrice = laborCalculatorService.calculateLabor(request).getPrice();
 
         // Compares the calculated price vs the expected price
-        Assertions.assertTrue(calculatedPrice == correctLaborCalculation.getPrice());
+        Assertions.assertTrue(calculatedPrice == correctLaborCalculation);
     }
 
     @Test
+    //not necessary
     public void checkFrontEndRequestConvertsToLaborCalculatedObject() {
-        // When we supply a LaborCalculatorRequest, we return a LaborCalculated Object
-       lenient().when(mockLaborCalculatorService.calculateLabor(mockLaborCalculatorRequest)).thenReturn(mockLaborCalculated);
+        // When we supply a LaborRequest, we return a Labor Object
+       lenient().when(mockLaborCalculatorService.calculateLabor(mockLaborRequest)).thenReturn(mockLabor);
     }
+    //
 
 }

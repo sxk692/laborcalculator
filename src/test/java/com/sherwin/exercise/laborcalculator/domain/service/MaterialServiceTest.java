@@ -1,8 +1,8 @@
 package com.sherwin.exercise.laborcalculator.domain.service;
 
-import com.sherwin.exercise.laborcalculator.domain.entity.MaterialCalculated;
+import com.sherwin.exercise.laborcalculator.domain.entity.Material;
 import com.sherwin.exercise.laborcalculator.domain.respositories.IMaterialCalculatedRepository;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialCalculatorRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialRequest;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
@@ -24,30 +24,31 @@ public class MaterialCalculatorServiceTest {
     @Mock
     IMaterialCalculatedRepository materialCalculatedRepository;
     @Mock
-    MaterialCalculated materialCalculated;
+    Material material;
 
     @Mock
-    MaterialCalculatorRequest materialCalculatorRequest;
+    MaterialRequest materialRequest;
 
     @Test
     public void checkMaterialCalculationFormulaWorks(){
 
         // This is the front-end request coming in
-        MaterialCalculatorRequest request = new MaterialCalculatorRequest(12.0, 14.0, 300);
+        MaterialRequest request = new MaterialRequest(12.0, 14.0, 300);
+
+        // Calculate materials required using service
+        Material calculatedMaterials = materialCalculatorService.calculateGallonsPerSqft(request);
 
         // This is the expected result object to compare the calculation to.
-        MaterialCalculated correctMaterialCalculation = new MaterialCalculated(12.0,14.0, 300, 0.56);
-
-        MaterialCalculated calculatedMaterials = materialCalculatorService.calculateGallonsPerSqft(request);
+        double correctMaterialCalculation = 0.56;
 
         // Compares the calculated price vs the expected price
-        Assertions.assertTrue(correctMaterialCalculation.getGallonsRequired() == calculatedMaterials.getGallonsRequired());
+        Assertions.assertTrue(correctMaterialCalculation == calculatedMaterials.getGallonsRequired());
     }
 
 
     @Test
     public void checkFrontEndRequestConvertsToMaterialCalculatedObject() {
 
-        lenient().when(mockMaterialCalculatorService.calculateGallonsPerSqft(materialCalculatorRequest)).thenReturn(materialCalculated);
+        lenient().when(mockMaterialCalculatorService.calculateGallonsPerSqft(materialRequest)).thenReturn(material);
     }
 }
