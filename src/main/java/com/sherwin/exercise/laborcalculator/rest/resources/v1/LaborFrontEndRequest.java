@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
-public class LaborCalculatorFrontEndRequest {
+public class LaborFrontEndRequest {
     @Positive
 //    @Pattern not currently working
 //    @Pattern(regexp = "^[+]?([.]\\d+|\\d+([.]\\d+)?)$")

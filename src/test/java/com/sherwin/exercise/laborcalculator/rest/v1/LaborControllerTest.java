@@ -1,12 +1,14 @@
 package com.sherwin.exercise.laborcalculator.rest.v1;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.sherwin.exercise.laborcalculator.domain.service.LaborCalculatorService;
-import com.sherwin.exercise.laborcalculator.rest.LaborCalculatorController;
-import com.sherwin.exercise.laborcalculator.rest.resources.mappers.LaborCalculatorMapper;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorResponse;
+import com.sherwin.exercise.laborcalculator.domain.service.LaborService;
+import com.sherwin.exercise.laborcalculator.rest.LaborController;
+import com.sherwin.exercise.laborcalculator.rest.resources.mappers.LaborMapper;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborFrontEndRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,19 +24,21 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(LaborCalculatorController.class)
-public class LaborCalculatorControllerTest {
+
+// spring security will need to use ccrf.
+@WebMvcTest(LaborController.class)
+public class LaborControllerTest {
 
     @Autowired
     private MockMvc mvc;
     @MockBean
-    LaborCalculatorService laborCalculatorService;
+    LaborService laborService;
     @MockBean
-    LaborCalculatorMapper laborCalculatorMapper;
+    LaborMapper laborMapper;
     @Mock
-    LaborCalculatorRequest laborCalculatorRequest;
+    LaborRequest laborRequest;
     @Mock
-    LaborCalculatorResponse laborCalculatorResponse;
+    LaborResponse laborResponse;
     private ObjectMapper objectMapper;
 
     @BeforeEach
@@ -45,35 +49,50 @@ public class LaborCalculatorControllerTest {
         objectMapper.registerModule(module);
     }
 
+
     @Test
-    public void get200ResponseWhenSendingPostToLaborEndpoint() throws Exception {
-        LaborCalculatorRequest request = new LaborCalculatorRequest(134,20,3.50);
-        // Checks whether we get a 200 when sending a post to this endpoint
-         mvc.perform(post("/labor/priceCalculation")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk());
-    }
-    @Test
-    public void checkAttributesOfLaborCalculatorRequest() throws Exception{
+    public void given_LaborFrontEndRequest_willReturn_LaborResponse() throws Exception {
+        LaborFrontEndRequest frontEndRequest = new LaborFrontEndRequest(12,14,2);
+        //Can this somehow be used in this test
         MvcResult result = mvc.perform(post("/labor/priceCalculation")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(objectMapper.writeValueAsString(laborCalculatorRequest)))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(frontEndRequest)))
                 .andReturn();
 
-        // Shows the request object info in console
-        System.out.println(result.getRequest().getContentAsString());
+
+
+        given(laborMapper.convertLaborToLaborResponse(laborService.calculateLabor(laborMapper.convertLaborFrontEndRequestToLaborRequest(frontEndRequest))))
+                .willReturn(laborResponse);
+
+    }
+    // normally care about end result, whereas this is more of a validation test.
+    @Test
+    public void checkRequiredFieldsExistInLaborFrontEndRequest() throws Exception{
+        LaborFrontEndRequest frontEndRequest = new LaborFrontEndRequest(10,10,2);
+        MvcResult result = mvc.perform(post("/labor/priceCalculation")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(frontEndRequest)))
+                .andReturn();
+
+//        LaborResponse response = objectMapper.readValue(result.getRequest().getContentAsString(), LaborResponse.class);
+//        Assertions.assertTrue(response.getPrice() == 200);
 
         String frontEndJsonRequest = result.getRequest().getContentAsString();
-
+//
         Assertions.assertTrue(frontEndJsonRequest.contains("length"));
         Assertions.assertTrue(frontEndJsonRequest.contains("width"));
         Assertions.assertTrue(frontEndJsonRequest.contains("pricePerSqft"));
-
-        given(laborCalculatorMapper.convertLaborCalculatedtoLaborCalculatorResponse(laborCalculatorService.calculateLabor(laborCalculatorRequest)))
-                .willReturn(laborCalculatorResponse);
     }
 
+//    @Test
+//    public void get200ResponseWhenSendingPostToLaborEndpoint() throws Exception {
+//        LaborRequest request = new LaborRequest(134,20,3.50);
+//        // Checks whether we get a 200 when sending a post to this endpoint
+//         mvc.perform(post("/labor/priceCalculation")
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                        .content(objectMapper.writeValueAsString(request)))
+//                .andExpect(status().isOk());
+//    }
     // one success, 2 failures
     // work on responses received
     // naming conventions

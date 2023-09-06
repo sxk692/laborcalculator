@@ -5,11 +5,11 @@ import com.sherwin.exercise.laborcalculator.rest.resources.v1.*;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface MaterialCalculatorMapper {
+public interface MaterialMapper {
 
     // Convert from Material object to MaterialResponse object
-    MaterialResponse convertMaterialCalculatedtoMaterialCalculatorResponse(Material calculatedMaterials);
+    MaterialResponse convertMaterialToMaterialResponse(Material calculatedMaterials);
 
-    MaterialRequest convertMaterialCalculatorFrontEndRequestToMaterialCalculatorRequest (MaterialFrontEndRequest request);
+    MaterialRequest convertMaterialFrontEndRequestToMaterialRequest(MaterialFrontEndRequest request);
 
 }

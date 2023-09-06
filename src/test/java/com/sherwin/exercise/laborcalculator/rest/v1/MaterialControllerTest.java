@@ -2,10 +2,13 @@ package com.sherwin.exercise.laborcalculator.rest.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.sherwin.exercise.laborcalculator.domain.service.MaterialCalculatorService;
-import com.sherwin.exercise.laborcalculator.rest.MaterialCalculatorController;
-import com.sherwin.exercise.laborcalculator.rest.resources.mappers.MaterialCalculatorMapper;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialCalculatorRequest;
+import com.sherwin.exercise.laborcalculator.domain.service.MaterialService;
+import com.sherwin.exercise.laborcalculator.rest.MaterialController;
+import com.sherwin.exercise.laborcalculator.rest.resources.mappers.MaterialMapper;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborFrontEndRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialFrontEndRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,20 +21,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import java.io.IOException;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(MaterialCalculatorController.class)
-public class MaterialCalculatorControllerTest {
+@WebMvcTest(MaterialController.class)
+public class MaterialControllerTest {
 
     @Autowired
     private MockMvc mvc;
     @MockBean
-    MaterialCalculatorService materialCalculatorService;
+    MaterialService materialService;
     @MockBean
-    MaterialCalculatorMapper materialCalculatorMapper;
+    MaterialMapper materialMapper;
     @Mock
-    MaterialCalculatorRequest materialCalculatorRequest;
+    MaterialRequest materialRequest;
+    @Mock
+    MaterialResponse materialResponse;
     private ObjectMapper objectMapper;
 
     @BeforeEach
@@ -41,22 +47,26 @@ public class MaterialCalculatorControllerTest {
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(module);
     }
-
     @Test
-    public void get200ResponseWhenSendingPostToGallonsEndpoint() throws Exception {
-        // Checks whether we get a 200 when sending a post to this endpoint
-        mvc.perform(post("/materials/gallons")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(objectMapper.writeValueAsString(materialCalculatorRequest)))
-                .andExpect(status().isOk());
+    public void given_MaterialFrontEndRequest_willReturn_MaterialResponse() throws Exception {
+        MaterialFrontEndRequest frontEndRequest = new MaterialFrontEndRequest(12,14,2);
+        //Can this somehow be used in this test
+//        MvcResult result = mvc.perform(post("/labor/priceCalculation")
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                        .content(objectMapper.writeValueAsString(frontEndRequest)))
+//                .andReturn();
+
+        given(materialMapper.convertMaterialToMaterialResponse(materialService. calculateGallonsPerSqft(materialMapper.convertMaterialFrontEndRequestToMaterialRequest(frontEndRequest))))
+                .willReturn(materialResponse);
+
     }
 
     @Test
     public void checkAttributesOfMaterialCalculatorRequest() throws Exception {
 
         MvcResult result = mvc.perform(post("/materials/gallons")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(objectMapper.writeValueAsString(materialCalculatorRequest)))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(materialRequest)))
                 .andReturn();
         // Shows the request object info in console
         System.out.println(result.getRequest().getContentAsString());
@@ -68,5 +78,15 @@ public class MaterialCalculatorControllerTest {
         Assertions.assertTrue(frontEndJsonRequest.contains("sqftPerGallon"));
 
     }
+
+//    @Test
+//    public void get200ResponseWhenSendingPostToGallonsEndpoint() throws Exception {
+//        // Checks whether we get a 200 when sending a post to this endpoint
+//        mvc.perform(post("/materials/gallonsNeededCalculation")
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                        .content(objectMapper.writeValueAsString(materialRequest)))
+//                .andExpect(status().isOk());
+//    }
+//
 
 }

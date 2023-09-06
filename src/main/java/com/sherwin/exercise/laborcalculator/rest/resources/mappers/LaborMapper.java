@@ -1,17 +1,17 @@
 package com.sherwin.exercise.laborcalculator.rest.resources.mappers;
 
 import com.sherwin.exercise.laborcalculator.domain.entity.Labor;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorFrontEndRequest;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorRequest;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborCalculatorResponse;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborFrontEndRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface LaborCalculatorMapper {
+public interface LaborMapper {
 
-    // Convert from Labor object to LaborCalculatorResponse DTO
-    LaborCalculatorResponse convertLaborCalculatedtoLaborCalculatorResponse(Labor calculatedLabor);
+    // Convert from Labor object to LaborResponse DTO
+    LaborResponse convertLaborToLaborResponse(Labor calculatedLabor);
 
-    LaborCalculatorRequest convertLaborCalculatedFrontEndRequestToLaborCalculatorRequest (LaborCalculatorFrontEndRequest request);
+    LaborRequest convertLaborFrontEndRequestToLaborRequest(LaborFrontEndRequest request);
 
 }

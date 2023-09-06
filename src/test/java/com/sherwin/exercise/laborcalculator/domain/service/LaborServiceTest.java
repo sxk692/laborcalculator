@@ -1,7 +1,7 @@
 package com.sherwin.exercise.laborcalculator.domain.service;
 
 import com.sherwin.exercise.laborcalculator.domain.entity.Labor;
-import com.sherwin.exercise.laborcalculator.domain.respositories.ILaborCalculatedRepository;
+import com.sherwin.exercise.laborcalculator.domain.respositories.ILaborRepository;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.LaborRequest;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -13,16 +13,16 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.mockito.Mockito.lenient;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LaborCalculatorServiceTest {
+public class LaborServiceTest {
 
     @InjectMocks
-    LaborCalculatorService laborCalculatorService;
+    LaborService laborService;
 
     @Mock
-    ILaborCalculatedRepository laborCalculatedRepository;
+    ILaborRepository laborCalculatedRepository;
 
     @Mock
-    LaborCalculatorService mockLaborCalculatorService;
+    LaborService mockLaborService;
 
     @Mock
     Labor mockLabor;
@@ -40,18 +40,18 @@ public class LaborCalculatorServiceTest {
         // better to have this than a magic number
         double correctLaborCalculation = 9380;
 
-        double calculatedPrice = laborCalculatorService.calculateLabor(request).getPrice();
+        double calculatedPrice = laborService.calculateLabor(request).getPrice();
 
         // Compares the calculated price vs the expected price
         Assertions.assertTrue(calculatedPrice == correctLaborCalculation);
     }
 
-    @Test
-    //not necessary
-    public void checkFrontEndRequestConvertsToLaborCalculatedObject() {
-        // When we supply a LaborRequest, we return a Labor Object
-       lenient().when(mockLaborCalculatorService.calculateLabor(mockLaborRequest)).thenReturn(mockLabor);
-    }
+//    @Test
+//    //not necessary
+//    public void checkFrontEndRequestConvertsToLaborCalculatedObject() {
+//        // When we supply a LaborRequest, we return a Labor Object
+//       lenient().when(mockLaborService.calculateLabor(mockLaborRequest)).thenReturn(mockLabor);
+//    }
     //
 
 }

@@ -2,35 +2,46 @@ package com.sherwin.exercise.laborcalculator.exception.handler;
 
 import com.sherwin.exercise.laborcalculator.exception.ErrorDetail;
 import jakarta.validation.ConstraintViolationException;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-@ControllerAdvice
-public class LaborAndMaterialExceptionHandler extends ResponseEntityExceptionHandler {
+@RestControllerAdvice
+public class LaborAndMaterialExceptionHandler {
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    private Map<String,String> handleConstraintViolation(MethodArgumentNotValidException ex, WebRequest request){
+        Map<String,String> errorMap = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error -> {
+            errorMap.put(error.getField(),error.getDefaultMessage());
+        });
+        return errorMap;
+    }
 
-    /*
-    We already get a 500 error, since we have established @Min annotations on the objects
-    which is why in Material controller, I didn't include @valid in the params to test if it still
-    works and it does (bc of @Min, @NotNull, etc annotations in the entity/domain objects).
-    This @ExceptionHandler provides a more custom solution for that same ConstraintViolationException.
-     */
-    @ExceptionHandler
-    private ResponseEntity<ErrorDetail> handleConstraintViolation(ConstraintViolationException ex, WebRequest request){
-
-        ErrorDetail errorDetail = new ErrorDetail
-                ( HttpStatus.NOT_ACCEPTABLE.value(),
-                        new Date(),
-                        "Received negative number or missing constraints",
-                        request.getDescription(true)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    private ResponseEntity<ErrorDetail> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex, WebRequest request) throws IOException {
+        ErrorDetail error = new ErrorDetail(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                "Please use positive numbers only",
+                request.getDescription(false)
         );
-
-        return new ResponseEntity<ErrorDetail>(errorDetail, HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<ErrorDetail>(error, HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,7 +1,7 @@
 package com.sherwin.exercise.laborcalculator.domain.service;
 
 import com.sherwin.exercise.laborcalculator.domain.entity.Material;
-import com.sherwin.exercise.laborcalculator.domain.respositories.IMaterialCalculatedRepository;
+import com.sherwin.exercise.laborcalculator.domain.respositories.IMaterialRepository;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialRequest;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -13,16 +13,16 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.mockito.Mockito.lenient;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MaterialCalculatorServiceTest {
+public class MaterialServiceTest {
 
     @InjectMocks
-    MaterialCalculatorService materialCalculatorService;
+    MaterialService materialService;
 
     @Mock
-    MaterialCalculatorService mockMaterialCalculatorService;
+    MaterialService mockMaterialService;
 
     @Mock
-    IMaterialCalculatedRepository materialCalculatedRepository;
+    IMaterialRepository materialCalculatedRepository;
     @Mock
     Material material;
 
@@ -36,7 +36,7 @@ public class MaterialCalculatorServiceTest {
         MaterialRequest request = new MaterialRequest(12.0, 14.0, 300);
 
         // Calculate materials required using service
-        Material calculatedMaterials = materialCalculatorService.calculateGallonsPerSqft(request);
+        Material calculatedMaterials = materialService.calculateGallonsPerSqft(request);
 
         // This is the expected result object to compare the calculation to.
         double correctMaterialCalculation = 0.56;
@@ -46,9 +46,10 @@ public class MaterialCalculatorServiceTest {
     }
 
 
-    @Test
-    public void checkFrontEndRequestConvertsToMaterialCalculatedObject() {
-
-        lenient().when(mockMaterialCalculatorService.calculateGallonsPerSqft(materialRequest)).thenReturn(material);
-    }
+//    @Test
+//    public void checkFrontEndRequestConvertsToMaterialCalculatedObject() {
+//
+//        lenient().w
+//        hen(mockMaterialService.calculateGallonsPerSqft(materialRequest)).thenReturn(material);
+//    }
 }

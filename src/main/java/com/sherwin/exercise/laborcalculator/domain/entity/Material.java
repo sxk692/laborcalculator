@@ -1,7 +1,6 @@
 package com.sherwin.exercise.laborcalculator.domain.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,19 +11,19 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="material")
-public class MaterialCalculated {
-
+public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     Date createdAt;
     private double length;
     private double width;
+    @Column(name = "sqft_per_gallon")
     private double sqftPerGallon;
+    @Column(name = "gallons_required")
     private double gallonsRequired;
 
-//    public MaterialCalculated(double length, double width, double sqftPerGallon, double gallonsRequired){
+//    public Material(double length, double width, double sqftPerGallon, double gallonsRequired){
 //        this.length = length;
 //        this.width = width;
 //        this.sqftPerGallon = sqftPerGallon;

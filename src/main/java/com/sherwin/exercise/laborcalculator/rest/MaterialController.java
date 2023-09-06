@@ -1,11 +1,11 @@
 package com.sherwin.exercise.laborcalculator.rest;
 
 import com.sherwin.exercise.laborcalculator.domain.entity.Material;
-import com.sherwin.exercise.laborcalculator.domain.service.MaterialCalculatorService;
-import com.sherwin.exercise.laborcalculator.rest.resources.mappers.MaterialCalculatorMapper;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialCalculatorFrontEndRequest;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialCalculatorRequest;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialCalculatorResponse;
+import com.sherwin.exercise.laborcalculator.domain.service.MaterialService;
+import com.sherwin.exercise.laborcalculator.rest.resources.mappers.MaterialMapper;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialFrontEndRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialRequest;
+import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MaterialCalculatorController {
+public class MaterialController {
 
     @Autowired
-    private MaterialCalculatorMapper materialCalculatorMapper;
+    private MaterialMapper materialMapper;
     @Autowired
-    private MaterialCalculatorService materialCalculatorService;
+    private MaterialService materialService;
     @PostMapping("materials/gallonsNeededCalculation")
-    private MaterialCalculatorResponse getGallonsRequiredPerSqft(@RequestBody @Valid MaterialCalculatorFrontEndRequest request){
+    private MaterialResponse getGallonsRequiredPerSqft(@RequestBody @Valid MaterialFrontEndRequest request){
 
-        // Convert from MaterialCalculatorFrontEndRequest to MaterialCalculatorRequest
-        MaterialCalculatorRequest materialCalculatorRequest = materialCalculatorMapper.convertMaterialCalculatorFrontEndRequestToMaterialCalculatorRequest(request);
+        // Convert from MaterialFrontEndRequest to MaterialRequest
+        MaterialRequest materialRequest = materialMapper.convertMaterialFrontEndRequestToMaterialRequest(request);
 
         // Calculated material object returned
-        Material material = materialCalculatorService.calculateGallonsPerSqft(materialCalculatorRequest);
+        Material material = materialService.calculateGallonsPerSqft(materialRequest);
 
         // Calculated material object mapped to response DTO
-        return materialCalculatorMapper.convertMaterialCalculatedtoMaterialCalculatorResponse(material);
+        return materialMapper.convertMaterialToMaterialResponse(material);
     }
 }

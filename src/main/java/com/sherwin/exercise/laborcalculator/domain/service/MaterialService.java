@@ -1,7 +1,7 @@
 package com.sherwin.exercise.laborcalculator.domain.service;
 
 import com.sherwin.exercise.laborcalculator.domain.entity.Material;
-import com.sherwin.exercise.laborcalculator.domain.respositories.IMaterialCalculatedRepository;
+import com.sherwin.exercise.laborcalculator.domain.respositories.IMaterialRepository;
 import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class MaterialCalculatorService {
+public class MaterialService {
 
     //TODO: Should these be private??
     @Autowired
-    IMaterialCalculatedRepository materialCalculatedRepository;
+    IMaterialRepository materialCalculatedRepository;
 
     // Old code, not ideal to have mapper in service, moved mapper to controller
 //    public MaterialResponse frontendRequestToCalculatedMaterialCalculatorResponse(MaterialRequest request){

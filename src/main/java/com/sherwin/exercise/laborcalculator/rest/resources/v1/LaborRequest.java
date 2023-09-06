@@ -1,7 +1,5 @@
 package com.sherwin.exercise.laborcalculator.rest.resources.v1;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +10,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
-public class LaborCalculatorRequest {
+public class LaborRequest {
     @Positive
     private double length;
     @Positive
