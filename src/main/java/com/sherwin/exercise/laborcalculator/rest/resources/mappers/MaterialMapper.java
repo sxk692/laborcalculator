@@ -8,10 +8,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface MaterialMapper {
 
-    // Convert from Material object to MaterialResponse object
     MaterialResponse convertMaterialToMaterialResponse(Material calculatedMaterials);
-
-//    MaterialRequest convertMaterialFrontEndRequestToMaterialRequest(MaterialFrontEndRequest request);
 
     MaterialCalculation convertMaterialRequestToMaterialCalculation(MaterialRequest request);
 }

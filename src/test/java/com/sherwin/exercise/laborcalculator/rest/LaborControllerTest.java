@@ -60,7 +60,7 @@ public class LaborControllerTest {
     @Test void labor_pricecalculation_Endpoint_Returns_Created_201() throws Exception {
 
         LaborRequest frontEndRequest = new LaborRequest(12,14,2);
-        mvc.perform(post("/labor/pricecalculation/create")
+        mvc.perform(post("/labor/calculation/price")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(frontEndRequest)))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
@@ -81,7 +81,7 @@ public class LaborControllerTest {
 //        given(laborMapper.convertLaborToLaborResponse(any())).willReturn(response);
 
         // Cannot get proper response object
-        MvcResult result =  this.mvc.perform(post("/labor/pricecalculation/create")
+        MvcResult result =  this.mvc.perform(post("/labor/calculation/price")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())

@@ -57,12 +57,13 @@ public class MaterialControllerTest {
 
         MaterialRequest frontEndRequest =  new MaterialRequest(10,2,3);
 
-        mvc.perform(post("/materials/gallonscalculation/create")
+        mvc.perform(post("/material/calculations/gallons-required")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(frontEndRequest)))
                         .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
+    // this isn't working, even tho it's the same exact code essentially from LaborControllerTest
     @Test
     public void check_Response_Contains_All_Necessary_Fields () throws Exception{
 
@@ -78,7 +79,7 @@ public class MaterialControllerTest {
 
         //checks if things are wired up correctly, not actual integration
         //not getting proper response
-        mvc.perform(post("/materials/gallonscalculation/create")
+        mvc.perform(post("/material/calculations/gallons-required")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())

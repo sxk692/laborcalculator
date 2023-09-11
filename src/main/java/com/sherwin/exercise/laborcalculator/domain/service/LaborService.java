@@ -32,9 +32,10 @@ public class LaborService {
         Labor calculatedLaborWithNewId = laborCalculatedRepository.save(labor);
 
        // Set id of labor object with the repo id
+
         labor.setId(calculatedLaborWithNewId .getId());
 
-       return labor;
+        return labor;
     }
 
     public double calculateLabor (LaborCalculation request) {

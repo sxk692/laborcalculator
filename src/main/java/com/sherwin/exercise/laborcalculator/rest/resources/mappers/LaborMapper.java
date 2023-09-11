@@ -9,12 +9,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface LaborMapper {
 
-    // Convert from Labor object to LaborResponse DTO
     LaborResponse convertLaborToLaborResponse(Labor calculatedLabor);
-
-//    LaborResponse convertLaborCalculationToLaborResponse(LaborCalculation laborCalculation);
-
-//    LaborRequest convertLaborFrontEndRequestToLaborRequest(LaborFrontEndRequest request);
 
     LaborCalculation convertLaborRequestToLaborCalculation(LaborRequest request);
 

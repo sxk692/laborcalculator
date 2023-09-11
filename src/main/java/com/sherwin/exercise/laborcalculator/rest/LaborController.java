@@ -23,13 +23,9 @@ public class LaborController {
     private LaborMapper laborMapper;
     /*
     ConstraintViolationException is for entity to database constraints
-    MethodArgumentNotValidException is for method input validation for our dtos
-
-    Think about better names for endpoints (nouns)
-    Google API correct convention URL construction
-    201 = created
+    MethodArgumentNotValidException is for method input validation for our DTOs
     */
-    @PostMapping("labor/pricecalculation/create")
+    @PostMapping("labor/calculation/price")
     //materializing
     @ResponseStatus(HttpStatus.CREATED)
     private LaborResponse getLaborCalculationPerSqft(@RequestBody @Valid LaborRequest frontEndRequest){
@@ -41,7 +37,7 @@ public class LaborController {
         Labor labor = laborService.saveLabor(laborCalculation);
 
        // Mapping calculated object to response DTO to send back as a response
-       return laborMapper.convertLaborToLaborResponse(labor);
+        return laborMapper.convertLaborToLaborResponse(labor);
 
     }
 }

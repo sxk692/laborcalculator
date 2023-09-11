@@ -22,7 +22,7 @@ public class MaterialController {
     @Autowired
     private MaterialService materialService;
     // no verbs, hieracrchical relationships
-    @PostMapping("materials/calculations/gallons-required")
+    @PostMapping("material/calculations/gallons-required")
     @ResponseStatus(HttpStatus.CREATED)
     private MaterialResponse getGallonsRequiredPerSqft(@RequestBody @Valid MaterialRequest frontEndRequest){
 
