@@ -1,20 +1,18 @@
-package com.sherwin.exercise.laborcalculator.rest.resources.v1;
+package com.sherwin.exercise.laborcalculator.infrastructure;
 
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Component
-public class MaterialFrontEndRequest {
-    @Positive
+public class MaterialCalculation {
     private double length;
-    @Positive
     private double width;
-    @Positive
     private double sqftPerGallon;
+    private double gallonsRequired;
+
 }

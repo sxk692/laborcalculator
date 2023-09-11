@@ -14,7 +14,7 @@ import java.util.Date;
 public class Labor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private double length;
     private double width;
     @Column(name="price_per_sqft")
@@ -22,13 +22,4 @@ public class Labor {
     @Column(name="total_price")
     private double price;
     Date createdAt;
-
-//    public Labor(double price, double length, double width, double pricePerSqft){
-//        this.length = length;
-//        this.width = width;
-//        this.pricePerSqft = pricePerSqft;
-//        this.price = price;
-//        this.createdAt = new Date();
-//    }
-
 }

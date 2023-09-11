@@ -5,7 +5,6 @@ package com.sherwin.exercise.laborcalculator.rest.mappers;
 //@RunWith(MockitoJUnitRunner.class)
 //public class LaborCalculatorMapperTest {
 //
-//    //TODO: Figure out how to inject mock something that is being created behind the scenes such as the mapper interface
 //    @InjectMocks
 //    LaborMapper laborCalculatorMapper;
 //    @Mock

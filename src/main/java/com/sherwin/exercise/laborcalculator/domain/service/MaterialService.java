@@ -2,7 +2,7 @@ package com.sherwin.exercise.laborcalculator.domain.service;
 
 import com.sherwin.exercise.laborcalculator.domain.entity.Material;
 import com.sherwin.exercise.laborcalculator.domain.respositories.IMaterialRepository;
-import com.sherwin.exercise.laborcalculator.rest.resources.v1.MaterialRequest;
+import com.sherwin.exercise.laborcalculator.infrastructure.MaterialCalculation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,36 +11,31 @@ import java.util.Date;
 @Service
 public class MaterialService {
 
-    //TODO: Should these be private??
     @Autowired
-    IMaterialRepository materialCalculatedRepository;
-
-    // Old code, not ideal to have mapper in service, moved mapper to controller
-//    public MaterialResponse frontendRequestToCalculatedMaterialCalculatorResponse(MaterialRequest request){
-//
-//        Material calculatedMaterials = calculateGallonsPerSqft(request);
-//        // Save in repository
-//        materialCalculatedRepository.save(calculatedMaterials);
-//        return materialCalculatorMapper.convertMaterialCalculatedtoMaterialCalculatorResponse(calculatedMaterials);
-//    }
-
-
+    private IMaterialRepository materialCalculatedRepository;
     /*
     1. Takes in front-end request information as parameter to calculate materials
     2. Calculated material information is converted into a new Material object
     3. Material object is mapped to a response object to send back
      */
-    public Material calculateGallonsPerSqft(MaterialRequest request){
+    public Material saveMaterial(MaterialCalculation request){
 
         // Calculate required number of gallons
-        double gallons =  request.getLength() * request.getWidth() / request.getSqftPerGallon();
+        double gallons = calculateGallons(request);
 
         // Create new object with required number of gallons
-        Material material = new Material(-1, new Date(), request.getLength(), request.getWidth(), request.getSqftPerGallon(), gallons);
+        Material material = new Material(-1, request.getLength(), request.getWidth(), request.getSqftPerGallon(), gallons, new Date());
 
         // Save to repository
-        materialCalculatedRepository.save(material);
+        Material calculatedMaterial =  materialCalculatedRepository.save(material);
+
+        // Set id of material object from repo object
+        material.setId(calculatedMaterial.getId());
 
         return material;
+    }
+
+    public double calculateGallons(MaterialCalculation request){
+        return request.getLength() * request.getWidth() / request.getSqftPerGallon();
     }
 }
